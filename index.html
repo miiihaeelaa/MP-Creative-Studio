@@ -132,6 +132,15 @@ section{padding:60px 0}
 .about-art{height:260px}
 .contact-form{padding:20px}
 }
+
+.planner-launch{margin:22px 0 30px;padding:20px 24px;border:1px solid #e4d1e9;border-radius:12px;background:linear-gradient(110deg,#fcf4fa,#f5edfb);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.planner-launch h3{margin:5px 0;font-size:23px}.planner-launch p{margin:0;font-size:13px;color:var(--muted)}
+.planner-dialog{border:0;border-radius:14px;padding:0;width:min(960px,96vw);height:min(92vh,900px);box-shadow:0 20px 90px #1b132e55;background:#fff}
+.planner-dialog::backdrop{background:#20152ac9}
+.planner-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--line)}
+.planner-dialog-head strong{font-family:"Playfair Display",serif;font-size:20px}
+.planner-dialog-head button{border:0;background:#f5ecf8;padding:8px 14px;border-radius:7px}
+.planner-dialog iframe{border:0;width:100%;height:calc(100% - 60px)}
 </style>
 </head>
 <body>
@@ -212,6 +221,8 @@ section{padding:60px 0}
 <h2>Explorează portofoliul</h2>
 <p>Explorează proiectele de design grafic, produsele digitale și demonstrațiile web.</p>
 </div>
+<div class="planner-launch"><div><div class="eyebrow">Proiect din categoria 9</div><h3>Planner de Nuntă</h3><p>Galerie cu 9 pagini reale selectate din plannerul de 60 de pagini.</p></div><button class="btn" type="button" id="openPlanner">VEZI PAGINILE →</button></div>
+<dialog id="plannerDialog" class="planner-dialog" aria-label="Galerie Planner de Nuntă"><div class="planner-dialog-head"><strong>Planner de Nuntă · Galerie</strong><button type="button" id="closePlanner">Închide ✕</button></div><iframe id="plannerFrame" title="Pagini reale din Planner de Nuntă" loading="lazy"></iframe></dialog>
 <div class="portfolio-grid" id="creativeGrid"></div>
 <div class="eyebrow" style="margin:45px 0 16px">Proiecte web interactive</div>
 <div class="portfolio-grid" id="portfolioGrid"></div>
@@ -491,6 +502,15 @@ if(!grid)return;
 grid.innerHTML=creativeProjects.map(([category,name,description,icon],i)=>`<article class="project"><div class="project-art" style="background:linear-gradient(135deg,${i%2?'#d8b9d8':'#ae8ac9'},${i%2?'#f6e4ed':'#e9d5e9'})"><span aria-hidden="true">${icon}</span></div><div class="project-body"><div class="project-category">${category}</div><h3>${name}</h3><p>${description}</p></div></article>`).join("");
 }
 renderCreativePortfolio();
+
+const plannerDialog=document.getElementById("plannerDialog");
+document.getElementById("openPlanner").addEventListener("click",()=>{
+const frame=document.getElementById("plannerFrame");
+if(!frame.src)frame.src="./Planner-de-Nunta-Galerie.pdf#toolbar=1&navpanes=0&view=FitH";
+plannerDialog.showModal();
+});
+document.getElementById("closePlanner").addEventListener("click",()=>plannerDialog.close());
+plannerDialog.addEventListener("click",e=>{if(e.target===plannerDialog)plannerDialog.close()});
 </script>
 </body>
 </html>
