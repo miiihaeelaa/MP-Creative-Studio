@@ -230,14 +230,9 @@ section{padding:60px 0}
 <h2>Explorează portofoliul</h2>
 <p>Explorează proiectele de design grafic, produsele digitale și demonstrațiile web.</p>
 </div>
-<div class="planner-launch"><div><div class="eyebrow">Proiect din categoria 9</div><h3>Planner de Nuntă</h3><p>Galerie cu 9 pagini reale selectate din plannerul de 60 de pagini.</p></div><button class="btn" type="button" id="openPlanner">VEZI PAGINILE →</button></div>
-<dialog id="plannerDialog" class="planner-dialog" aria-label="Galerie Planner de Nuntă"><div class="planner-dialog-head"><strong>Planner de Nuntă · Galerie</strong><button type="button" id="closePlanner">Închide ✕</button></div><iframe id="plannerFrame" title="Pagini reale din Planner de Nuntă" loading="lazy"></iframe></dialog>
-<div class="portfolio-grid" id="creativeGrid"></div>
+
 <div class="eyebrow" style="margin:45px 0 16px">Proiecte web interactive</div>
 <div class="portfolio-grid" id="portfolioGrid"></div>
-<div class="portfolio-note reveal">
-<strong>Portofoliu în curs de completare vizuală</strong><br>Proiectele de design grafic sunt prezentate pe categorii. Imaginile și previzualizările documentelor vor fi adăugate în galerie.
-</div>
 </div>
 </section>
 
@@ -549,12 +544,7 @@ message
 window.location.href="mailto:mhldmtr@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
 });
 
-function renderCreativePortfolio(){
-const grid=document.getElementById("creativeGrid");
-if(!grid)return;
-grid.innerHTML=creativeProjects.map(([category,name,description,icon],i)=>`<article class="project"><div class="project-art" style="background:linear-gradient(135deg,${i%2?'#d8b9d8':'#ae8ac9'},${i%2?'#f6e4ed':'#e9d5e9'})"><span aria-hidden="true">${icon}</span></div><div class="project-body"><div class="project-category">${category}</div><h3>${name}</h3><p>${description}</p></div></article>`).join("");
-}
-renderCreativePortfolio();
+
 
 const plannerDialog=document.getElementById("plannerDialog");
 document.getElementById("openPlanner").addEventListener("click",()=>{
