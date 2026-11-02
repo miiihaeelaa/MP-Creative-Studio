@@ -146,6 +146,8 @@ section{padding:60px 0}
 .category-dialog{border:0;border-radius:16px;width:min(940px,96vw);max-height:88vh;padding:0;box-shadow:0 25px 80px #26172d55}.category-dialog::backdrop{background:#1e1429b8}
 .category-dialog-head{padding:20px 25px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:15px}.category-dialog-head h2{font-size:27px;margin:0}.category-dialog-head button{border:0;border-radius:8px;background:#f4eaf8;padding:10px 15px}
 .category-dialog-body{padding:24px;overflow:auto;max-height:calc(88vh - 80px)}.category-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.category-item{padding:20px;border:1px solid var(--line);border-radius:12px;background:#fdfafd}.category-item strong{font-family:"Playfair Display",serif;font-size:19px}.category-item p{font-size:12px;color:var(--muted)}.category-item a{font-size:12px;color:var(--purple);font-weight:700}
+
+.real-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}.real-work{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}.real-work img{display:block;width:100%;height:200px;object-fit:contain;background:#f8f3f9}.real-work video{width:100%;max-height:300px;background:#21152b}.real-work strong{display:block;padding:13px;font-size:13px}.real-work button{display:block;margin:0 13px 13px;border:0;background:var(--purple);color:white;border-radius:5px;padding:9px 12px;font-size:12px}.image-lightbox{border:0;background:transparent;padding:0;max-width:95vw;max-height:95vh}.image-lightbox::backdrop{background:#160d20e8}.image-lightbox img{display:block;max-width:92vw;max-height:88vh;object-fit:contain}.image-lightbox button{float:right;margin-bottom:8px;background:white;border:0;border-radius:5px;padding:8px 12px}
 </style>
 </head>
 <body>
@@ -216,7 +218,8 @@ section{padding:60px 0}
 <p>De la identitate vizuală la soluții web, într-un singur studio.</p>
 </div>
 <div class="service-grid" id="serviceGrid"></div>
-<dialog id="categoryDialog" class="category-dialog"><div class="category-dialog-head"><h2 id="categoryTitle"></h2><button type="button" id="closeCategory">Închide ✕</button></div><div class="category-dialog-body"><div id="categoryItems" class="category-items"></div></div></dialog>
+<dialog id="imageLightbox" class="image-lightbox"><button type="button" id="closeLightbox">Închide ✕</button><img id="largeWorkImage" alt="Lucrare mărită"></dialog>
+<dialog id="categoryDialog" class="category-dialog"><div class="category-dialog-head"><h2 id="categoryTitle"></h2><button type="button" id="closeCategory">Închide ✕</button></div><div class="category-dialog-body"><div id="categoryItems" class="real-gallery"></div></div></dialog>
 </div>
 </section>
 
@@ -426,20 +429,25 @@ const categoryDetails=[
 ["Dashboard-uri & rapoarte","Nexora Analytics"]
 ];
 const categoryDialog=document.getElementById("categoryDialog");
+const actualWorks=[[["BELLA MODE","bella-mode-banner"],["HOMEPLUS","homeplus-banner"],["PROFIX TOOLS","profix-banner"],["LUMIÈRE BEAUTY","lumiere-banner"]],[["AURA CANDLES","aura-logo"],["BLOOM BEAUTY","bloom-logo"],["NEXORA DIGITAL","nexora-logo"]],[["AURELIA BEAUTY – Față","aurelia-card-0"],["AURELIA BEAUTY – Verso","aurelia-card-1"],["NEXUS BUSINESS CONSULTING","nexus-card-0"],["ROOTS EVENTS – Afiș","roots-poster"],["FUNDAȚIA SPERANȚA – Afiș","fundatia-poster"]],[["Botez Matei","baptism-matei"],["Teddy Bear Beige","baptism-teddy"],["Baby Pink","baby-pink"],["Andreea & Alexandru","wedding-invite"]],[["BELLA MODE","bella-mode-social"],["ROSE BEAUTY","rose-beauty-social"],["ELECTROCASNICE","electro-social"],["ÉLORA PARFUMS","elora-social"],["VELVET CAFÉ","velvet-social"],["MAISONÉ HOME – 1","maisone-social-0"],["MAISONÉ HOME – 2","maisone-social-1"],["MAISONÉ HOME – 3","maisone-social-2"]],[["MAISON CAFÉ – Meniu","maison-menu"],["BELLA VITA – Meniu","bella-vita-menu"],["MAISONÉ HOME – Catalog","maison-catalog"],["ÉLITE BEAUTY – Listă de prețuri","elite-prices"]],[["BLOOM CANDLES – Ambalaj","bloom-pack"],["BLOOM CANDLES – Sticker","bloom-sticker"],["ÉLORA PARFUMS – Etichetă","elora-label"]],[["NEXORA DIGITAL – Prezentare","nexora-presentation"]],[["Planner de Nuntă","wedding-planner","pdf"],["Blossom Self-Care Journal","self-care"],["Blossom Goal Setter","goal-setter"],["Glow & Sell","glow-sell"],["Social Glow Kit","social-glow"],["Escape Room","escape-room"]],[["THE ESSENCE OF ELEGANCE","essence-video","video"],["LUMIÈRE BEAUTY","lumiere-video","video"]]];
+const liveDemos=["https://aurora-interiors-seven.vercel.app/","https://velora-shop-alpha.vercel.app/","https://mini-chef-landing.vercel.app/","https://crm-telesales-showcase.vercel.app/","https://lumiere-beauty-booking.vercel.app/","https://nexora-analytics-dashboard.vercel.app/"];
+const imageLightbox=document.getElementById("imageLightbox");
+document.getElementById("closeLightbox").addEventListener("click",()=>imageLightbox.close());
+imageLightbox.addEventListener("click",e=>{if(e.target===imageLightbox)imageLightbox.close()});
 function openCategory(index){
 const [title,...items]=categoryDetails[index];
 document.getElementById("categoryTitle").textContent=title;
-const target=document.getElementById("categoryItems");
-target.replaceChildren();
-items.forEach(item=>{
-const article=document.createElement("article");article.className="category-item";
-const heading=document.createElement("strong");heading.textContent=item;
-const note=document.createElement("p");note.textContent="Exemplu de proiect din portofoliu";
-article.append(heading,note);
-if(item==="Planner de Nuntă"){
-const a=document.createElement("a");a.href="./Planner-de-Nunta-Galerie.pdf";a.target="_blank";a.textContent="Deschide galeria PDF →";article.append(a);
-}
-target.append(article);
+const target=document.getElementById("categoryItems");target.replaceChildren();
+if(index>=10){const a=document.createElement("a");a.className="btn";a.href=liveDemos[index-10];a.target="_blank";a.rel="noopener noreferrer";a.textContent="DESCHIDE PROIECTUL LIVE →";target.append(a)}
+else (actualWorks[index]||[]).forEach(([name,file,type])=>{
+const card=document.createElement("article");card.className="real-work";
+const path="assets/"+file+(type==="video"?".mp4":".webp");
+if(type==="video"){const video=document.createElement("video");video.controls=true;video.preload="metadata";video.src=path;card.append(video)}
+else {const img=document.createElement("img");img.src=path;img.loading="lazy";img.alt=name;card.append(img);
+const btn=document.createElement("button");btn.type="button";btn.textContent="MĂREȘTE IMAGINEA";btn.addEventListener("click",()=>{document.getElementById("largeWorkImage").src=path;imageLightbox.showModal()});card.append(btn)}
+const heading=document.createElement("strong");heading.textContent=name;card.append(heading);
+if(type==="pdf"){const a=document.createElement("a");a.href="assets/"+file+".pdf";a.target="_blank";a.textContent="Răsfoiește paginile PDF →";a.style.display="block";a.style.padding="0 13px 13px";card.append(a)}
+target.append(card);
 });
 categoryDialog.showModal();
 }
@@ -551,7 +559,7 @@ renderCreativePortfolio();
 const plannerDialog=document.getElementById("plannerDialog");
 document.getElementById("openPlanner").addEventListener("click",()=>{
 const frame=document.getElementById("plannerFrame");
-if(!frame.src)frame.src="./Planner-de-Nunta-Galerie.pdf#toolbar=1&navpanes=0&view=FitH";
+if(!frame.src)frame.src="./assets/wedding-planner.pdf#toolbar=1&navpanes=0&view=FitH";
 plannerDialog.showModal();
 });
 document.getElementById("closePlanner").addEventListener("click",()=>plannerDialog.close());
