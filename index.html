@@ -441,7 +441,7 @@ if(type==="video"){const video=document.createElement("video");video.controls=tr
 else {const img=document.createElement("img");img.src=path;img.loading="lazy";img.alt=name;card.append(img);
 const btn=document.createElement("button");btn.type="button";btn.textContent="MĂREȘTE IMAGINEA";btn.addEventListener("click",()=>{document.getElementById("largeWorkImage").src=path;imageLightbox.showModal()});card.append(btn)}
 const heading=document.createElement("strong");heading.textContent=name;card.append(heading);
-if(type==="pdf"){const a=document.createElement("a");a.href="assets/"+file+".pdf";a.target="_blank";a.textContent="Răsfoiește paginile PDF →";a.style.display="block";a.style.padding="0 13px 13px";card.append(a)}
+if(type==="pdf"){const a=document.createElement("a");a.href=file==="nexora-presentation"?"assets/"+encodeURIComponent("NEXORA DIGITAL – Prezentare Companie 2026.pdf"):"assets/"+file+".pdf";a.target="_blank";a.textContent="Răsfoiește paginile PDF →";a.style.display="block";a.style.padding="0 13px 13px";card.append(a)}
 target.append(card);
 });
 categoryDialog.showModal();
