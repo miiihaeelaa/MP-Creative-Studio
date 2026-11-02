@@ -141,6 +141,11 @@ section{padding:60px 0}
 .planner-dialog-head strong{font-family:"Playfair Display",serif;font-size:20px}
 .planner-dialog-head button{border:0;background:#f5ecf8;padding:8px 14px;border-radius:7px}
 .planner-dialog iframe{border:0;width:100%;height:calc(100% - 60px)}
+
+.service{cursor:pointer}.service:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+.category-dialog{border:0;border-radius:16px;width:min(940px,96vw);max-height:88vh;padding:0;box-shadow:0 25px 80px #26172d55}.category-dialog::backdrop{background:#1e1429b8}
+.category-dialog-head{padding:20px 25px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:15px}.category-dialog-head h2{font-size:27px;margin:0}.category-dialog-head button{border:0;border-radius:8px;background:#f4eaf8;padding:10px 15px}
+.category-dialog-body{padding:24px;overflow:auto;max-height:calc(88vh - 80px)}.category-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.category-item{padding:20px;border:1px solid var(--line);border-radius:12px;background:#fdfafd}.category-item strong{font-family:"Playfair Display",serif;font-size:19px}.category-item p{font-size:12px;color:var(--muted)}.category-item a{font-size:12px;color:var(--purple);font-weight:700}
 </style>
 </head>
 <body>
@@ -211,6 +216,7 @@ section{padding:60px 0}
 <p>De la identitate vizuală la soluții web, într-un singur studio.</p>
 </div>
 <div class="service-grid" id="serviceGrid"></div>
+<dialog id="categoryDialog" class="category-dialog"><div class="category-dialog-head"><h2 id="categoryTitle"></h2><button type="button" id="closeCategory">Închide ✕</button></div><div class="category-dialog-body"><div id="categoryItems" class="category-items"></div></div></dialog>
 </div>
 </section>
 
@@ -401,11 +407,50 @@ colors:["#41357b","#8c7be8"]
 }
 ];
 
+const categoryDetails=[
+["Bannere publicitare","4 bannere publicitare"],
+["Logo & identitate vizuală","3 concepte de logo și identitate vizuală"],
+["Cărți de vizită & flyere","Cărți de vizită","Flyere","Afișe"],
+["Invitații evenimente","Invitație de nuntă","Invitații de botez"],
+["Social media design","Rose Beauty – postare Instagram","Postări și story-uri promoționale"],
+["Meniuri & cataloage","Maison Café – meniu","Bella Vita – meniu","Cataloage și liste de prețuri"],
+["Etichete & ambalaje","Bloom Scented Candles – etichete","Élora Parfums – ambalaje"],
+["Prezentări profesionale","Prezentare profesională – slideshow"],
+["Plannere & e-book-uri","Planner de Nuntă","Blossom Self-Care Journal","Blossom Goal Setter","Social Glow Kit","Glow & Sell","Escape Room: Castelul Misterios"],
+["Videoclipuri promoționale","THE ESSENCE OF ELEGANCE","LUMIÈRE BEAUTY"],
+["Site-uri de prezentare","Aurora Interiors"],
+["Magazine online","Velora Shop"],
+["Landing page-uri","Mini Chef"],
+["Aplicații web & CRM","CRM Telesales"],
+["Sisteme de rezervări","Lumière Beauty"],
+["Dashboard-uri & rapoarte","Nexora Analytics"]
+];
+const categoryDialog=document.getElementById("categoryDialog");
+function openCategory(index){
+const [title,...items]=categoryDetails[index];
+document.getElementById("categoryTitle").textContent=title;
+const target=document.getElementById("categoryItems");
+target.replaceChildren();
+items.forEach(item=>{
+const article=document.createElement("article");article.className="category-item";
+const heading=document.createElement("strong");heading.textContent=item;
+const note=document.createElement("p");note.textContent="Exemplu de proiect din portofoliu";
+article.append(heading,note);
+if(item==="Planner de Nuntă"){
+const a=document.createElement("a");a.href="./Planner-de-Nunta-Galerie.pdf";a.target="_blank";a.textContent="Deschide galeria PDF →";article.append(a);
+}
+target.append(article);
+});
+categoryDialog.showModal();
+}
+document.getElementById("closeCategory").addEventListener("click",()=>categoryDialog.close());
+categoryDialog.addEventListener("click",e=>{if(e.target===categoryDialog)categoryDialog.close()});
 const serviceGrid=document.getElementById("serviceGrid");
 const serviceSelect=document.getElementById("service");
-services.forEach(([icon,title,description])=>{
+services.forEach(([icon,title,description],index)=>{
 const card=document.createElement("article");
 card.className="service reveal";
+card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Vezi proiectele: "+title);card.addEventListener("click",()=>openCategory(index));card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openCategory(index)}});
 const iconEl=document.createElement("div");
 iconEl.className="service-icon";
 iconEl.textContent=icon;
