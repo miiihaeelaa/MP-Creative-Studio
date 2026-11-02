@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="MP Creative Studio – design grafic, branding, social media, website-uri, aplicații web și produse digitale.">
+<meta name="theme-color" content="#faf6fc">
+<title>MP Creative Studio | Design & Digital Experiences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--ink:#292034;--muted:#756b7e;--lilac:#9674c6;--purple:#6d4a99;
+--rose:#d8a9c1;--blush:#f8eaf2;--cream:#faf6ef;--gold:#b99a62;
+--line:#eae0ec;--white:#fff
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"DM Sans",sans-serif;color:var(--ink);background:#fff}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.container{width:min(1160px,92%);margin:auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+h1,h2,h3{font-family:"Playfair Display",serif;font-weight:500}
+h1{font-size:clamp(48px,6vw,82px);line-height:1.08;letter-spacing:-2px;margin:18px 0 23px}
+h2{font-size:clamp(35px,4vw,52px);margin:12px 0 17px}
+h3{font-size:24px}
+p{line-height:1.85}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:5px;border:1px solid var(--purple);background:var(--purple);color:white;font-size:12px;font-weight:700;letter-spacing:.5px;transition:.2s}
+.btn:hover{background:#55367e;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--purple)}
+.btn-outline:hover{background:#f0e7f8}
+.topline{background:#30243e;color:#e9dced;text-align:center;padding:10px;font-size:10px;letter-spacing:2.5px}
+header{position:sticky;top:0;z-index:30;background:#ffffffef;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 0}
+.logo{font-family:"Playfair Display",serif;font-size:25px;font-weight:600;white-space:nowrap}
+.logo span{color:var(--purple)}
+nav{display:flex;gap:22px;align-items:center;font-size:12px;font-weight:700}
+nav a:hover{color:var(--purple)}
+.menu-toggle{display:none;background:transparent;border:0;font-size:26px}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 30%,#ead8f2 0%,transparent 45%),linear-gradient(125deg,#fffaf8,#f5eaf8);padding:105px 0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center}
+.hero h1 em{color:var(--purple);font-weight:400}
+.hero p{font-size:15px;color:var(--muted);max-width:520px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero-art{position:relative;min-height:420px;display:grid;place-items:center}
+.art-circle{position:absolute;width:350px;height:350px;border-radius:50%;background:linear-gradient(145deg,#e6c5d8,#c8b2e7);box-shadow:0 30px 70px #62427324}
+.art-circle:before,.art-circle:after{content:"";position:absolute;border:1px solid #ffffff90;border-radius:50%;inset:22px}
+.art-circle:after{inset:48px}
+.art-monogram{position:relative;z-index:1;font-family:"Playfair Display",serif;font-size:112px;color:#fff;text-shadow:0 7px 25px #4a28582c}
+.art-caption{position:absolute;bottom:12px;right:0;background:white;padding:20px 26px;border:1px solid var(--line);box-shadow:0 15px 40px #36204216;z-index:2}
+.art-caption strong{display:block;font-family:"Playfair Display",serif;font-size:19px}
+.art-caption small{font-size:10px;letter-spacing:2px;color:var(--purple)}
+section{padding:85px 0}
+.section-head{text-align:center;max-width:760px;margin:0 auto 42px}
+.section-head p{color:var(--muted);font-size:14px}
+.about{background:#fff}
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.about-art{height:350px;border-radius:200px 200px 12px 12px;background:linear-gradient(135deg,#f1d8e3,#d6c0ec);display:grid;place-items:center}
+.about-art span{font-family:"Playfair Display",serif;font-size:110px;color:white}
+.about p{color:var(--muted);font-size:14px}
+.about-highlights{display:flex;gap:30px;flex-wrap:wrap;margin-top:23px}
+.about-highlights strong{display:block;font-size:22px;color:var(--purple)}
+.about-highlights small{font-size:11px;color:var(--muted)}
+.services{background:#fbf8fc}
+.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.service{background:white;border:1px solid var(--line);padding:23px;border-radius:12px;transition:.2s}
+.service:hover{transform:translateY(-5px);box-shadow:0 15px 30px #43234a12}
+.service-icon{font-size:28px;margin-bottom:16px}
+.service h3{font-size:19px;margin:0 0 9px}
+.service p{font-size:12px;color:var(--muted);margin:0}
+.portfolio{background:white}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.project{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:white;transition:.2s}
+.project:hover{transform:translateY(-4px);box-shadow:0 15px 35px #39244913}
+.project-art{height:185px;display:grid;place-items:center;position:relative;overflow:hidden}
+.project-art:before{content:"";position:absolute;width:160px;height:160px;border:1px solid #ffffff70;border-radius:50%}
+.project-art span{font-family:"Playfair Display",serif;font-size:40px;font-weight:600;z-index:1;color:white;text-shadow:0 4px 18px #34234430}
+.project-body{padding:23px}
+.project-category{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);font-weight:700}
+.project h3{font-size:24px;margin:10px 0}
+.project p{font-size:12px;color:var(--muted);min-height:65px}
+.project a{display:inline-flex;color:var(--purple);font-size:12px;font-weight:800;padding:10px 0}
+.project a:hover{text-decoration:underline}
+.portfolio-note{background:var(--cream);border:1px solid #efe5d8;border-radius:12px;padding:25px;margin-top:30px;text-align:center;font-size:13px;color:var(--muted)}
+.process{background:linear-gradient(130deg,#f5eafa,#fff8f5)}
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.step{padding:25px;border-top:2px solid var(--gold)}
+.step-number{font-family:"Playfair Display",serif;font-size:42px;color:var(--purple)}
+.step h3{margin:12px 0}
+.step p{color:var(--muted);font-size:13px}
+.contact{background:#fff}
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:65px}
+.contact-copy p{font-size:14px;color:var(--muted)}
+.contact-detail{padding:15px 0;border-bottom:1px solid var(--line);font-size:13px}
+.contact-detail strong{display:block;color:var(--purple);font-size:11px;letter-spacing:1px;margin-bottom:5px}
+.contact-form{background:#fbf8fc;border:1px solid var(--line);border-radius:14px;padding:30px}
+.field{margin-bottom:17px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #ded1e6;border-radius:7px;background:white;padding:13px;outline:none;color:var(--ink)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple)}
+.field textarea{resize:vertical;min-height:110px}
+.form-note{font-size:11px;color:var(--muted)}
+footer{background:#30243e;color:white;text-align:center;padding:43px 0}
+footer .logo{font-size:27px}
+footer p{font-size:12px;color:#c9bcd3}
+.footer-links{display:flex;justify-content:center;gap:23px;font-size:12px;margin:20px 0;flex-wrap:wrap}
+.footer-links a:hover{color:#dfb9f2}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s,transform .65s}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media(max-width:1000px){
+.service-grid{grid-template-columns:repeat(2,1fr)}
+.portfolio-grid{grid-template-columns:repeat(2,1fr)}
+.hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+.menu-toggle{display:block}
+nav{display:none;position:absolute;top:100%;left:0;right:0;background:white;padding:20px 5%;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}
+nav.open{display:flex}
+.header-inner>.btn{display:none}
+.hero{padding:65px 0}
+.hero-art{min-height:300px}
+.art-circle{width:270px;height:270px}
+.art-monogram{font-size:85px}
+.art-caption{padding:12px;bottom:0}
+section{padding:60px 0}
+.service-grid,.portfolio-grid,.process-grid{grid-template-columns:1fr}
+.about-art{height:260px}
+.contact-form{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topline">DESIGN · CREATIVITY · DIGITAL EXPERIENCES</div>
+
+<header>
+<div class="container header-inner">
+<a class="logo" href="#acasa">MP <span>Creative Studio</span></a>
+<nav id="mainNav">
+<a href="#despre">Despre</a>
+<a href="#servicii">Servicii</a>
+<a href="#portofoliu">Portofoliu</a>
+<a href="#proces">Cum lucrăm</a>
+<a href="#contact">Contact</a>
+</nav>
+<a class="btn" href="#contact">SOLICITĂ O OFERTĂ</a>
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Deschide meniul" aria-expanded="false">☰</button>
+</div>
+</header>
+
+<main>
+
+<section class="hero" id="acasa">
+<div class="container hero-grid">
+<div class="reveal">
+<div class="eyebrow">Creative Design & Digital Solutions</div>
+<h1>Ideile tale merită un design <em>memorabil.</em></h1>
+<p>Transform ideile în identități vizuale, materiale grafice și experiențe digitale care ajută brandurile să se prezinte profesionist și să se facă remarcate.</p>
+<div class="hero-actions">
+<a class="btn" href="#portofoliu">DESCOPERĂ PORTOFOLIUL →</a>
+<a class="btn btn-outline" href="#contact">HAI SĂ COLABORĂM</a>
+</div>
+</div>
+<div class="hero-art reveal">
+<div class="art-circle"></div>
+<div class="art-monogram">MP</div>
+<div class="art-caption">
+<strong>Creative ideas. Beautiful results.</strong>
+<small>MP CREATIVE STUDIO</small>
+</div>
+</div>
+</div>
+</section>
+
+<section class="about" id="despre">
+<div class="container about-grid">
+<div class="about-art reveal"><span>✦</span></div>
+<div class="reveal">
+<div class="eyebrow">Despre studio</div>
+<h2>Creativitate cu atenție la fiecare detaliu.</h2>
+<p>MP Creative Studio este un studio creativ dedicat proiectelor de design grafic și soluțiilor digitale pentru afaceri, antreprenori și branduri aflate în dezvoltare.</p>
+<p>De la o simplă postare pentru social media până la un website sau o aplicație web, fiecare proiect este gândit pentru a îmbina estetica, funcționalitatea și identitatea brandului.</p>
+<div class="about-highlights">
+<div><strong>16</strong><small>Categorii de proiecte</small></div>
+<div><strong>6</strong><small>Proiecte web demonstrative</small></div>
+<div><strong>100%</strong><small>Atenție la detalii</small></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="services" id="servicii">
+<div class="container">
+<div class="section-head reveal">
+<div class="eyebrow">Ce pot realiza pentru tine</div>
+<h2>Servicii creative & digitale</h2>
+<p>De la identitate vizuală la soluții web, într-un singur studio.</p>
+</div>
+<div class="service-grid" id="serviceGrid"></div>
+</div>
+</section>
+
+<section class="portfolio" id="portofoliu">
+<div class="container">
+<div class="section-head reveal">
+<div class="eyebrow">Proiecte selectate</div>
+<h2>Explorează portofoliul</h2>
+<p>Descoperă câteva dintre proiectele web dezvoltate și explorează demonstrațiile online.</p>
+</div>
+<div class="portfolio-grid" id="portfolioGrid"></div>
+<div class="portfolio-note reveal">
+<strong>Și multe alte proiecte creative!</strong><br>
+Portofoliul include și materiale grafice, identități vizuale, invitații, cataloage, plannere și creații pentru social media. Exemple suplimentare sunt disponibile la cerere.
+</div>
+</div>
+</section>
+
+<section class="process" id="proces">
+<div class="container">
+<div class="section-head reveal">
+<div class="eyebrow">Procesul de colaborare</div>
+<h2>De la idee la rezultat</h2>
+</div>
+<div class="process-grid">
+<div class="step reveal">
+<div class="step-number">01</div>
+<h3>Discutăm ideea</h3>
+<p>Îmi povestești despre afacerea ta, ce ai nevoie și ce stil îți dorești.</p>
+</div>
+<div class="step reveal">
+<div class="step-number">02</div>
+<h3>Creăm conceptul</h3>
+<p>Pregătesc direcția vizuală și soluția potrivită pentru proiectul tău.</p>
+</div>
+<div class="step reveal">
+<div class="step-number">03</div>
+<h3>Finalizăm proiectul</h3>
+<p>Rafinăm detaliile și pregătim materialele pentru utilizare.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact">
+<div class="container contact-grid">
+<div class="contact-copy reveal">
+<div class="eyebrow">Hai să colaborăm</div>
+<h2>Ai un proiect în minte?</h2>
+<p>Spune-mi ce îți dorești să realizezi și hai să găsim împreună o soluție creativă pentru brandul tău.</p>
+<div class="contact-detail">
+<strong>E-MAIL</strong>
+<a href="mailto:mhldmtr@gmail.com">mhldmtr@gmail.com</a>
+</div>
+<div class="contact-detail">
+<strong>TIKTOK</strong>
+<a href="https://www.tiktok.com/@petricamihaelaa" target="_blank" rel="noopener noreferrer">@petricamihaelaa</a>
+</div>
+<div class="contact-detail">
+<strong>PORTOFOLIU</strong>
+MP Creative Studio · Design & Digital
+</div>
+</div>
+<div class="contact-form reveal">
+<form id="contactForm">
+<div class="field">
+<label for="name">Numele tău</label>
+<input id="name" type="text" required placeholder="Nume și prenume">
+</div>
+<div class="field">
+<label for="email">Adresa de e-mail</label>
+<input id="email" type="email" required placeholder="exemplu@email.com">
+</div>
+<div class="field">
+<label for="service">Serviciul dorit</label>
+<select id="service" required>
+<option value="">Alege un serviciu</option>
+</select>
+</div>
+<div class="field">
+<label for="message">Detalii despre proiect</label>
+<textarea id="message" required placeholder="Descrie pe scurt proiectul tău..."></textarea>
+</div>
+<button class="btn" type="submit">PREGĂTEȘTE MESAJUL →</button>
+<p class="form-note">La apăsare se deschide aplicația de e-mail cu mesajul completat. Formularul nu trimite automat datele.</p>
+</form>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+<div class="logo">MP <span>Creative Studio</span></div>
+<p>Design grafic · Branding · Website-uri · Soluții digitale</p>
+<div class="footer-links">
+<a href="#servicii">Servicii</a>
+<a href="#portofoliu">Portofoliu</a>
+<a href="#contact">Contact</a>
+</div>
+<p>© 2026 MP Creative Studio · Toate drepturile rezervate.</p>
+</div>
+</footer>
+
+<script>
+const services=[
+["🎨","Bannere publicitare","Materiale vizuale pentru campanii, oferte și promovare."],
+["✦","Logo & identitate vizuală","Logo-uri, palete de culori și elemente de brand."],
+["📇","Cărți de vizită & flyere","Materiale pentru prezentarea profesională a afacerii."],
+["💌","Invitații evenimente","Invitații personalizate pentru momente speciale."],
+["📱","Social media design","Postări, story-uri și reclame pentru platformele sociale."],
+["📖","Meniuri & cataloage","Meniuri, cataloage de produse și liste de prețuri."],
+["🏷️","Etichete & ambalaje","Etichete, stickere și concepte pentru ambalaje."],
+["📊","Prezentări profesionale","Prezentări pentru branduri, servicii și proiecte."],
+["📔","Plannere & e-book-uri","Jurnale, ghiduri digitale, printabile și workbook-uri."],
+["🎬","Videoclipuri promoționale","Slideshow-uri și materiale video de promovare."],
+["🌐","Site-uri de prezentare","Website-uri moderne pentru afaceri și profesioniști."],
+["🛍️","Magazine online","Concepte de e-commerce și experiențe de cumpărare."],
+["🚀","Landing page-uri","Pagini pentru promovarea ofertelor și colectarea solicitărilor."],
+["💻","Aplicații web & CRM","Interfețe și sisteme pentru organizarea activității."],
+["📅","Sisteme de rezervări","Organizatoare și formulare de programare online."],
+["📈","Dashboard-uri & rapoarte","Vizualizări interactive de date și indicatori."]
+];
+
+const projects=[
+{
+name:"AURORA INTERIORS",
+category:"Website de prezentare",
+description:"Concept de website elegant pentru un studio de amenajări interioare.",
+url:"https://aurora-interiors-seven.vercel.app/",
+short:"AURORA",
+colors:["#c8a99b","#eee0d4"]
+},
+{
+name:"VELORA SHOP",
+category:"Magazin online",
+description:"Magazin online demonstrativ, cu produse, coș și simulare de comandă.",
+url:"https://velora-shop-alpha.vercel.app/",
+short:"VELORA",
+colors:["#bea0d6","#e5d8ee"]
+},
+{
+name:"MINI CHEF",
+category:"Landing page",
+description:"Pagină de prezentare cu formular demonstrativ pentru un concept dedicat copiilor.",
+url:"https://mini-chef-landing.vercel.app/",
+short:"MINI CHEF",
+colors:["#e5aa7c","#f7dbb4"]
+},
+{
+name:"CRM TELESALES",
+category:"Aplicație web & CRM",
+description:"Prezentarea unei platforme de gestionare a clienților, comenzilor și echipelor.",
+url:"https://crm-telesales-showcase.vercel.app/",
+short:"CRM",
+colors:["#42306c","#a98ce1"]
+},
+{
+name:"LUMIÈRE BEAUTY",
+category:"Sistem de programări",
+description:"Concept de rezervări online pentru un salon beauty, cu calendar și formular interactiv.",
+url:"https://lumiere-beauty-booking.vercel.app/",
+short:"LUMIÈRE",
+colors:["#c88f9b","#f2d5d6"]
+},
+{
+name:"NEXORA ANALYTICS",
+category:"Dashboard & rapoarte",
+description:"Dashboard interactiv cu grafice, indicatori financiari, filtre și export CSV.",
+url:"https://nexora-analytics-dashboard.vercel.app/",
+short:"NEXORA",
+colors:["#41357b","#8c7be8"]
+}
+];
+
+const serviceGrid=document.getElementById("serviceGrid");
+const serviceSelect=document.getElementById("service");
+services.forEach(([icon,title,description])=>{
+const card=document.createElement("article");
+card.className="service reveal";
+const iconEl=document.createElement("div");
+iconEl.className="service-icon";
+iconEl.textContent=icon;
+const heading=document.createElement("h3");
+heading.textContent=title;
+const text=document.createElement("p");
+text.textContent=description;
+card.append(iconEl,heading,text);
+serviceGrid.appendChild(card);
+const option=document.createElement("option");
+option.value=title;
+option.textContent=title;
+serviceSelect.appendChild(option);
+});
+
+const portfolioGrid=document.getElementById("portfolioGrid");
+projects.forEach(project=>{
+const card=document.createElement("article");
+card.className="project reveal";
+const art=document.createElement("div");
+art.className="project-art";
+art.style.background="linear-gradient(135deg,"+project.colors.join(",")+")";
+const monogram=document.createElement("span");
+monogram.textContent=project.short;
+art.appendChild(monogram);
+const body=document.createElement("div");
+body.className="project-body";
+const category=document.createElement("div");
+category.className="project-category";
+category.textContent=project.category;
+const heading=document.createElement("h3");
+heading.textContent=project.name;
+const desc=document.createElement("p");
+desc.textContent=project.description;
+const link=document.createElement("a");
+link.href=project.url;
+link.target="_blank";
+link.rel="noopener noreferrer";
+link.textContent="VEZI PROIECTUL LIVE →";
+body.append(category,heading,desc,link);
+card.append(art,body);
+portfolioGrid.appendChild(card);
+});
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+observer.unobserve(entry.target);
+}
+});
+},{threshold:.08});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+const menuToggle=document.getElementById("menuToggle");
+const mainNav=document.getElementById("mainNav");
+menuToggle.addEventListener("click",()=>{
+const open=mainNav.classList.toggle("open");
+menuToggle.setAttribute("aria-expanded",String(open));
+menuToggle.textContent=open?"×":"☰";
+});
+mainNav.querySelectorAll("a").forEach(link=>{
+link.addEventListener("click",()=>{
+mainNav.classList.remove("open");
+menuToggle.setAttribute("aria-expanded","false");
+menuToggle.textContent="☰";
+});
+});
+
+document.getElementById("contactForm").addEventListener("submit",event=>{
+event.preventDefault();
+const name=document.getElementById("name").value.trim();
+const email=document.getElementById("email").value.trim();
+const service=document.getElementById("service").value;
+const message=document.getElementById("message").value.trim();
+const subject="Solicitare ofertă MP Creative Studio – "+service;
+const body=[
+"Bună ziua,",
+"",
+"Doresc o ofertă pentru: "+service,
+"",
+"Nume: "+name,
+"E-mail: "+email,
+"",
+"Detalii proiect:",
+message
+].join("\n");
+window.location.href="mailto:mhldmtr@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
