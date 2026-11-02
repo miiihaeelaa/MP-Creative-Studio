@@ -210,12 +210,13 @@ section{padding:60px 0}
 <div class="section-head reveal">
 <div class="eyebrow">Proiecte selectate</div>
 <h2>Explorează portofoliul</h2>
-<p>Descoperă câteva dintre proiectele web dezvoltate și explorează demonstrațiile online.</p>
+<p>Explorează proiectele de design grafic, produsele digitale și demonstrațiile web.</p>
 </div>
+<div class="portfolio-grid" id="creativeGrid"></div>
+<div class="eyebrow" style="margin:45px 0 16px">Proiecte web interactive</div>
 <div class="portfolio-grid" id="portfolioGrid"></div>
 <div class="portfolio-note reveal">
-<strong>Și multe alte proiecte creative!</strong><br>
-Portofoliul include și materiale grafice, identități vizuale, invitații, cataloage, plannere și creații pentru social media. Exemple suplimentare sunt disponibile la cerere.
+<strong>Portofoliu în curs de completare vizuală</strong><br>Proiectele de design grafic sunt prezentate pe categorii. Imaginile și previzualizările documentelor vor fi adăugate în galerie.
 </div>
 </div>
 </section>
@@ -326,6 +327,18 @@ const services=[
 ["📈","Dashboard-uri & rapoarte","Vizualizări interactive de date și indicatori."]
 ];
 
+const creativeProjects=[
+["Bannere publicitare","BELLA MODE · HOMEPLUS · PROFIX TOOLS · LUMIÈRE BEAUTY","Campanii promoționale și bannere pentru branduri.","🎨"],
+["Logo & identitate vizuală","AURA CANDLES · BLOOM BEAUTY · NEXORA DIGITAL","Concepte de identitate și logo pentru branduri.","✦"],
+["Cărți de vizită, flyere & afișe","AURELIA BEAUTY · NEXUS BUSINESS CONSULTING · ROOTS EVENTS","Materiale de promovare pentru print și digital.","📇"],
+["Invitații evenimente","Baptism Invitation · Baby Pink · Teddy Bear Beige","Invitații personalizate pentru evenimente speciale.","💌"],
+["Social media design","BELLA MODE · ROSE BEAUTY LOUNGE · MAISONÉ HOME","Postări și materiale pentru promovare online.","📱"],
+["Meniuri, cataloage & liste de prețuri","MAISON CAFÉ · BELLA VITA · MAISONÉ HOME","Meniuri și cataloage cu prezentare comercială.","📖"],
+["Etichete, stickere & ambalaje","BLOOM CANDLES · ÉLORA PARFUMS","Concepte de packaging și etichetare.","🏷️"],
+["Prezentări profesionale","NEXORA DIGITAL – Prezentare Companie 2026","Prezentări de brand și companie.","📊"],
+["Plannere, jurnale & e-book-uri","Planner de Nuntă · Blossom Goal Setter · Self-Care Journal · Glow & Sell · Social Glow Kit · Escape Room","Produse digitale, ghiduri și materiale interactive.","📔"],
+["Videoclipuri promoționale","THE ESSENCE OF ELEGANCE · LUMIÈRE BEAUTY","Două exemple de videoclipuri promoționale.","🎬"]
+];
 const projects=[
 {
 name:"AURORA INTERIORS",
@@ -471,6 +484,13 @@ message
 ].join("\n");
 window.location.href="mailto:mhldmtr@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
 });
+
+function renderCreativePortfolio(){
+const grid=document.getElementById("creativeGrid");
+if(!grid)return;
+grid.innerHTML=creativeProjects.map(([category,name,description,icon],i)=>`<article class="project"><div class="project-art" style="background:linear-gradient(135deg,${i%2?'#d8b9d8':'#ae8ac9'},${i%2?'#f6e4ed':'#e9d5e9'})"><span aria-hidden="true">${icon}</span></div><div class="project-body"><div class="project-category">${category}</div><h3>${name}</h3><p>${description}</p></div></article>`).join("");
+}
+renderCreativePortfolio();
 </script>
 </body>
 </html>
