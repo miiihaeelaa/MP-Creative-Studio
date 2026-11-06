@@ -436,6 +436,19 @@ const upcomingWorks = [
   ["Plannere & e-book-uri","Certificat de Excelență (1 pagină)"],
   ["Plannere & e-book-uri","RUTINA MEA (10 pagini)"]
 ];
+const addedWorks=[
+[1,"VIVA CREATIVE – Identitate vizuală (2 pagini)","viva-creative.pdf"],
+[2,"MAISON ÉLITE – Broșură Amenajări Interioare (6 pagini)","maison-elite.pdf"],
+[2,"NAIL LAB. – Card de Fidelitate (2 pagini)","nail-lab.pdf"],
+[2,"LUNA BEAUTY STUDIO – Voucher Cadou (2 pagini)","luna-beauty.pdf"],
+[5,"Velvet Ritual – Services & Pricing 2026 (7 pagini)","velvet-ritual.pdf"],
+[6,"HONEY BLOOM – Etichetă Miere Premium","honey-bloom.pdf"],
+[6,"VERA BOTANICA – Hydra Boost | Ambalaj Cosmetic","vera-botanica-ambalaj.pdf"],
+[6,"VERA BOTANICA – Hydra Boost | Desfășurată Cutie","vera-botanica-cutie.pdf"],
+[8,"Certificat de Excelență (1 pagină)","certificat-excelenta.pdf"],
+[8,"RUTINA MEA – Planner (10 pagini)","rutina-mea.pdf"]
+];
+addedWorks.forEach(([index,title,file])=>actualWorks[index].push([title,file,"newpdf"]));
 const liveDemos=["https://aurora-interiors-seven.vercel.app/","https://velora-shop-alpha.vercel.app/","https://mini-chef-landing.vercel.app/","https://crm-telesales-showcase.vercel.app/","https://lumiere-beauty-booking.vercel.app/","https://nexora-analytics-dashboard.vercel.app/"];
 const imageLightbox=document.getElementById("imageLightbox");
 document.getElementById("closeLightbox").addEventListener("click",()=>imageLightbox.close());
@@ -448,11 +461,11 @@ if(index>=10){const a=document.createElement("a");a.className="btn";a.href=liveD
 else (actualWorks[index]||[]).forEach(([name,file,type])=>{
 const card=document.createElement("article");card.className="real-work";
 const path="assets/"+file+(type==="video"?".mp4":".webp");
-if(type==="video"){const video=document.createElement("video");video.controls=true;video.preload="metadata";video.src=path;card.append(video)}
+if(type==="newpdf"){const cover=document.createElement("div");cover.style.cssText="height:200px;background:linear-gradient(135deg,#f8eaf2,#e9ddf4);display:grid;place-items:center;text-align:center;padding:18px;color:#6d4a99;font-family:Playfair Display,serif;font-size:18px";cover.textContent=name;card.append(cover)}else if(type==="video"){const video=document.createElement("video");video.controls=true;video.preload="metadata";video.src=path;card.append(video)}
 else {const img=document.createElement("img");img.src=path;img.loading="lazy";img.alt=name;card.append(img);
 const btn=document.createElement("button");btn.type="button";btn.textContent="MĂREȘTE IMAGINEA";btn.addEventListener("click",()=>{document.getElementById("largeWorkImage").src=path;imageLightbox.showModal()});card.append(btn)}
 const heading=document.createElement("strong");heading.textContent=name;card.append(heading);
-if(type==="pdf"){const a=document.createElement("a");a.href=file==="nexora-presentation"?"assets/"+encodeURIComponent("NEXORA DIGITAL – Prezentare Companie 2026.pdf"):"assets/"+file+".pdf";a.target="_blank";a.textContent="Răsfoiește paginile PDF →";a.style.display="block";a.style.padding="0 13px 13px";card.append(a)}
+if(type==="newpdf"){const a=document.createElement("a");a.href="assets/"+file;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Răsfoiește proiectul PDF →";a.style.cssText="display:block;padding:0 13px 13px";card.append(a)}if(type==="pdf"){const a=document.createElement("a");a.href=file==="nexora-presentation"?"assets/"+encodeURIComponent("NEXORA DIGITAL – Prezentare Companie 2026.pdf"):"assets/"+file+".pdf";a.target="_blank";a.textContent="Răsfoiește paginile PDF →";a.style.display="block";a.style.padding="0 13px 13px";card.append(a)}
 target.append(card);
 });
 categoryDialog.showModal();
