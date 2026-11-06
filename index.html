@@ -467,22 +467,45 @@ document.head.append(script);
 return pdfLibraryPromise;
 }
 async function renderPdfGallery(url,card,preview,name){
+const cover=document.createElement("img");
+cover.alt=name+" – copertă";cover.style.cssText="display:block;width:100%;height:auto;cursor:pointer";
+const btn=document.createElement("button");btn.type="button";btn.textContent="VEZI TOATE PAGINILE";
+card.append(cover,btn);
+const open=()=>openPdfProject(url,name);
+btn.addEventListener("click",open);cover.addEventListener("click",open);
 try{
-const lib=await loadPdfLibrary();
-const doc=await lib.getDocument(url).promise;
-preview.remove();
-for(let pageNo=1;pageNo<=doc.numPages;pageNo++){
-const page=await doc.getPage(pageNo);
-const viewport=page.getViewport({scale:1.5});
-const canvas=document.createElement("canvas");
-canvas.width=Math.round(viewport.width);canvas.height=Math.round(viewport.height);
-canvas.style.cssText="display:block;width:100%;height:auto;margin-top:12px";
+const lib=await loadPdfLibrary();const doc=await lib.getDocument(url).promise;
+const page=await doc.getPage(1);const viewport=page.getViewport({scale:1.1});
+const canvas=document.createElement("canvas");canvas.width=Math.round(viewport.width);canvas.height=Math.round(viewport.height);
 await page.render({canvasContext:canvas.getContext("2d"),viewport}).promise;
-const img=document.createElement("img");img.src=canvas.toDataURL("image/jpeg",0.85);img.alt=name+" – pagina "+pageNo;img.loading="lazy";card.append(img);
-const btn=document.createElement("button");btn.type="button";btn.textContent="MĂREȘTE IMAGINEA";
-btn.addEventListener("click",()=>{document.getElementById("largeWorkImage").src=img.src;imageLightbox.showModal()});card.append(btn);
+cover.src=canvas.toDataURL("image/jpeg",0.82);preview.remove();
+}catch(error){preview.textContent="Apasă pentru a deschide proiectul";cover.style.display="none"}
 }
-}catch(error){preview.textContent="Previzualizarea nu este disponibilă momentan.";const link=document.createElement("a");link.href=url;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Deschide proiectul PDF";card.append(link)}
+let pdfProjectDialog;
+async function openPdfProject(url,name){
+if(!pdfProjectDialog){
+pdfProjectDialog=document.createElement("dialog");pdfProjectDialog.className="category-dialog";
+pdfProjectDialog.style.cssText="width:min(96vw,900px);max-height:92vh;overflow:auto;padding:18px;border-radius:18px";
+pdfProjectDialog.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:white;padding:8px;z-index:2"><strong id="pdfProjectTitle"></strong><button type="button" id="closePdfProject">ÎNCHIDE ×</button></div><div id="pdfProjectPages" style="display:grid;gap:16px;padding:10px 0"></div>';
+document.body.append(pdfProjectDialog);
+pdfProjectDialog.querySelector("#closePdfProject").addEventListener("click",()=>pdfProjectDialog.close());
+pdfProjectDialog.addEventListener("click",e=>{if(e.target===pdfProjectDialog)pdfProjectDialog.close()});
+}
+pdfProjectDialog.querySelector("#pdfProjectTitle").textContent=name;
+const pages=pdfProjectDialog.querySelector("#pdfProjectPages");pages.replaceChildren();
+const loading=document.createElement("p");loading.textContent="Se încarcă paginile…";pages.append(loading);
+pdfProjectDialog.showModal();
+try{
+const lib=await loadPdfLibrary();const doc=await lib.getDocument(url).promise;loading.remove();
+for(let i=1;i<=doc.numPages;i++){
+if(!pdfProjectDialog.open)break;
+const page=await doc.getPage(i);const viewport=page.getViewport({scale:1.4});
+const canvas=document.createElement("canvas");canvas.width=Math.round(viewport.width);canvas.height=Math.round(viewport.height);
+await page.render({canvasContext:canvas.getContext("2d"),viewport}).promise;
+const img=document.createElement("img");img.src=canvas.toDataURL("image/jpeg",0.85);img.alt=name+" – pagina "+i;img.style.cssText="width:100%;height:auto;border-radius:8px";
+pages.append(img);
+}
+}catch(error){loading.textContent="Nu s-au putut încărca paginile.";const link=document.createElement("a");link.href=url;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Deschide PDF-ul";pages.append(link)}
 }
 function openCategory(index){
 const [title,...items]=categoryDetails[index];
