@@ -169,6 +169,15 @@ section{padding:60px 0}
 </div>
 </header>
 
+<dialog id="portfolioChoice" style="border:0;border-radius:20px;padding:30px;max-width:440px;width:90%;box-shadow:0 20px 65px #0003;text-align:center">
+<button type="button" id="closePortfolioChoice" style="float:right;background:none;border:0;font-size:24px;cursor:pointer" aria-label="Închide">×</button>
+<h2 style="margin:18px 0 10px">Ce dorești să descoperi?</h2>
+<p style="margin-bottom:25px">Alege categoria de proiecte pe care vrei să o explorezi.</p>
+<div style="display:grid;gap:12px">
+<a class="btn" href="#servicii" data-portfolio-choice>PROIECTE</a>
+<a class="btn" href="#portofoliu" data-portfolio-choice>SITE-URI ȘI APLICAȚII WEB</a>
+</div>
+</dialog>
 <main>
 
 <section class="hero" id="acasa">
@@ -178,7 +187,7 @@ section{padding:60px 0}
 <h1>Ideile tale merită un design <em>memorabil.</em></h1>
 <p>Transform ideile în identități vizuale, materiale grafice și experiențe digitale care ajută brandurile să se prezinte profesionist și să se facă remarcate.</p>
 <div class="hero-actions">
-<a class="btn" href="#portofoliu">DESCOPERĂ PORTOFOLIUL →</a>
+<button class="btn" type="button" id="discoverPortfolio">DESCOPERĂ PORTOFOLIUL →</button>
 <a class="btn btn-outline" href="#contact">HAI SĂ COLABORĂM</a>
 </div>
 </div>
@@ -588,6 +597,11 @@ observer.unobserve(entry.target);
 },{threshold:.08});
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
+const portfolioChoice=document.getElementById("portfolioChoice");
+document.getElementById("discoverPortfolio").addEventListener("click",()=>portfolioChoice.showModal());
+document.getElementById("closePortfolioChoice").addEventListener("click",()=>portfolioChoice.close());
+portfolioChoice.addEventListener("click",e=>{if(e.target===portfolioChoice)portfolioChoice.close()});
+portfolioChoice.querySelectorAll("[data-portfolio-choice]").forEach(link=>link.addEventListener("click",()=>portfolioChoice.close()));
 const menuToggle=document.getElementById("menuToggle");
 const mainNav=document.getElementById("mainNav");
 menuToggle.addEventListener("click",()=>{
