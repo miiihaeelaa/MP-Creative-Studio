@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -299,7 +300,9 @@ const works=[
 ["BELLA MODE","bella-mode-banner"],
 ["HOMEPLUS","homeplus-banner"],
 ["PROFIX TOOLS","profix-banner"],
-["LUMIÈRE BEAUTY","lumiere-banner"]
+["LUMIÈRE BEAUTY","lumiere-banner"],
+["BLACKLINE AUTO DETAILING – Banner Publicitar","BLACKLINE AUTO DETAILING – Banner Publicitar.png","png"],
+["FORNO 27 – Banner Publicitar Pizza Artizanală","FORNO 27 – Banner Publicitar Pizza Artizanală.png","png"]
 ],
 [
 ["AURA CANDLES","aura-logo"],
@@ -515,7 +518,8 @@ video.preload="metadata";
 video.src="assets/"+file+".mp4";
 card.append(video);
 }else{
-const path="assets/"+file+".webp";
+const filename=type==="png"?file:file+".webp";
+const path="assets/"+encodeURIComponent(filename);
 const img=document.createElement("img");
 img.src=path;
 img.alt=name;
@@ -544,7 +548,6 @@ const card=document.createElement("article");
 card.className="service";
 card.tabIndex=0;
 card.setAttribute("role","button");
-card.innerHTML="";
 const iconDiv=document.createElement("div");
 iconDiv.className="service-icon";
 iconDiv.textContent=icon;
