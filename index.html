@@ -525,7 +525,7 @@ card.append(video);
 }else{
 const filename=type==="png"?file:file+".webp";
 
-const path="assets/"+(type==="png"?file:file+".webp");
+const path=(type==="png"?"":"assets/")+(type==="png"?file:file+".webp");
 const img=document.createElement("img");
 img.src=path;
 img.alt=name;
