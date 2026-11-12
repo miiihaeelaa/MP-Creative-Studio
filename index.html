@@ -316,8 +316,7 @@ const works=[
 ["VIVA CREATIVE – Identitate vizuală","viva-creative.pdf","pdf"]
 ],
 [
-["AURELIA BEAUTY – Față","aurelia-card-0"],
-["AURELIA BEAUTY – Verso","aurelia-card-1"],
+["AURELIA BEAUTY – Carte de vizită","aurelia-card-0","imagepair"],
 ["NEXUS BUSINESS CONSULTING","nexus-card-0"],
 ["ROOTS EVENTS","roots-poster"],
 ["FUNDAȚIA SPERANȚA","fundatia-poster"],
@@ -496,6 +495,22 @@ status.textContent="PDF indisponibil. Verifică folderul assets.";
 }
 }
 
+function openImagePair(name,files){
+$("pdfTitle").textContent=name;
+const target=$("pdfPages");
+target.replaceChildren();
+files.forEach((file,i)=>{
+const label=document.createElement("strong");
+label.textContent=i===0?"FAȚĂ":"VERSO";
+const img=document.createElement("img");
+img.src="assets/"+file+".webp";
+img.alt=name+" – "+(i===0?"Față":"Verso");
+img.style.cssText="display:block;width:100%;height:auto;max-width:850px;margin:0 auto 16px";
+target.append(label,img);
+});
+pdfDialog.showModal();
+}
+
 function openCategory(index){
 $("categoryTitle").textContent=services[index][1];
 const target=$("categoryItems");
@@ -514,7 +529,18 @@ target.append(a);
 const card=document.createElement("article");
 card.className="work";
 
-if(type==="pdf"){
+if(type==="imagepair"){
+const files=["aurelia-card-0","aurelia-card-1"];
+const img=document.createElement("img");
+img.src="assets/"+files[0]+".webp";
+img.alt=name+" – Față";
+img.loading="lazy";
+img.onclick=()=>openImagePair(name,files);
+const button=document.createElement("button");
+button.textContent="VEZI TOATE PAGINILE";
+button.onclick=()=>openImagePair(name,files);
+card.append(img,button);
+}else if(type==="pdf"){
 pdfCard(card,name,file);
 }else if(type==="video"){
 const video=document.createElement("video");
