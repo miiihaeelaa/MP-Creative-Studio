@@ -234,12 +234,13 @@ section{padding:55px 0}
 </div>
 <div class="contact-form">
 <form id="contactForm">
-<div class="field"><label for="name">Numele tău</label><input id="name" required></div>
-<div class="field"><label for="email">E-mail</label><input id="email" type="email" required></div>
+<div class="field"><label for="name">Numele tău</label><input id="name" autocomplete="name" required></div>
+<div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" required></div>
 <div class="field"><label for="service">Serviciul dorit</label><select id="service" required><option value="">Alege un serviciu</option></select></div>
 <div class="field"><label for="message">Detalii proiect</label><textarea id="message" required></textarea></div>
-<button class="btn" type="submit">PREGĂTEȘTE MESAJUL →</button>
-<p class="form-note">Se deschide aplicația de e-mail cu mesajul pregătit.</p>
+<div class="field"><label for="referralCode">Ai un cod de reducere? (opțional)</label><input id="referralCode" placeholder="Introdu codul, dacă ai unul" autocomplete="off"></div>
+<button class="btn" type="submit">TRIMITE SOLICITAREA PE WHATSAPP →</button>
+<p class="form-note">Solicitarea se deschide în WhatsApp, cu detaliile completate. Prețul va fi stabilit după analizarea proiectului.</p>
 </form>
 </div>
 </div>
@@ -660,19 +661,18 @@ const name=$("name").value.trim();
 const email=$("email").value.trim();
 const service=$("service").value;
 const message=$("message").value.trim();
-const subject="Solicitare ofertă MP Creative Studio – "+service;
+const code=$("referralCode").value.trim().toUpperCase();
 const body=[
-"Bună ziua,",
-"",
-"Doresc o ofertă pentru: "+service,
+"Bună! Doresc o ofertă de la MP Creative Studio.",
 "",
 "Nume: "+name,
 "E-mail: "+email,
-"",
-"Detalii proiect:",
-message
+"Serviciul dorit: "+service,
+"Detalii proiect: "+message,
+"Cod de reducere: "+(code||"Nu am")
 ].join("\n");
-location.href="mailto:hello.MPcreativestudio@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+const url="https://wa.me/40743838545?text="+encodeURIComponent(body);
+window.open(url,"_blank","noopener,noreferrer");
 };
 </script>
 </body>
